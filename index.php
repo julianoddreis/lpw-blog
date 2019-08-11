@@ -13,7 +13,7 @@
   </head>
   <body>
   <?php include('components/header.php') ?>
-  <div class="row align-start posts">
+  <div class="row align-start content posts">
     <div class="post">
       <div class="row align-start justify-between">
         <p class="post__title">Titulo</p>

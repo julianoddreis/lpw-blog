@@ -81,10 +81,18 @@ body {
   margin-right: 10px;
 }
 
-.posts {
+.header__menu li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.content {
   padding: 40px;
-  flex-wrap: wrap;
   min-height: calc(100vh - 127px);
+}
+
+.posts {
+  flex-wrap: wrap;
 }
 
 .post {
@@ -116,4 +124,59 @@ body {
 
 .post__actions i:first-child {
   margin-right: 10px;
+}
+
+.form {
+  background-color: white;
+  border-radius: 4px;
+  padding: 20px;
+  min-width: 600px;
+}
+
+.form__field-wrapper {
+  margin-bottom: 30px;
+}
+
+.form__field-wrapper label, .form__input {
+  transition: all .2s ease-in-out;
+}
+
+.form__field-wrapper:focus-within label {
+  color: #fdbb23
+}
+
+.form__field-wrapper:focus-within .form__input {
+  border: 1px solid #fdbb23;
+}
+
+.form__input {
+  border-radius: 4px;
+  padding: 12px;
+  border: 1px solid #636573;
+  outline: none;
+}
+
+.form__buttons button:first-child {
+  margin-right: 15px;
+}
+
+.btn {
+  width: 100px;
+  padding: 12px 0;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.btn--primary {
+  background-color: #fdbb23;
+  color: #1a1b22;
+  border: 1px solid #fdbb23;
+}
+
+.btn--secondary {
+  background-color: white;
+  color: #1a1b22;
+  border: 1px solid #1a1b22;
 }
