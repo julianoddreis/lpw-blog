@@ -26,7 +26,7 @@
         </div>
         <div class="row justify-end align-center form__buttons">
           <button class="btn btn--secondary">Cancelar</button>
-          <button class="btn btn--primary">Salvar</button>
+          <button type="submit" class="btn btn--primary">Salvar</button>
         </div>
       </form>
     </div>
@@ -42,6 +42,8 @@
 
       const body = new FormData()
 
+      console.log('id', $('#id').value)
+
       body.append('id', $('#id').value)
       body.append('title', $('#title').value)
       body.append('description', $('#description').value)
@@ -50,11 +52,28 @@
       const response = await fetch('functions.php', {method: 'POST', body})
 
       if (response.status === 200) {
-        alert('Post criado com sucesso!')
+        alert(`Post ${$('#id').value ? 'editado' : 'criado'} com sucesso!`)
         window.location.href = '/'
       } else {
         alert('Ops! Alguma coisa deu errado.')
       }
+
+    }
+
+    const getPostById = async id => {
+      const response = await fetch('functions.php?id=' + id)
+      const [ post ] = await response.json()
+      console.log(post)
+      $('#id').value = post.id
+      $('#title').value = post.title
+      $('#description').value = post.description
+      $('#image').value = post.image
+    }
+
+    const params = new URLSearchParams(window.location.search)
+    const id = params.get('id')
+    if (id) {
+      getPostById(id)
     }
 
     form.addEventListener('submit', submit)
