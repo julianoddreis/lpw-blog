@@ -1,7 +1,3 @@
-<?php
-    // include "functions.php"
-?>
-
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8">
@@ -15,17 +11,18 @@
   <?php include('components/header.php') ?>
     <div class="content row align-start justify-center">
       <form class="form column">
+        <input id='id' type='hidden' />
         <div class="column form__field-wrapper">
           <label>Título</label>
-          <input name='title' class="form__input" />
+          <input id='title' class="form__input" />
         </div>
         <div class="column form__field-wrapper">
           <label>Descrição</label>
-          <input name='description' class="form__input" />
+          <input id='description' class="form__input" />
         </div>
         <div class="column form__field-wrapper">
           <label>Imagem</label>
-          <input name='image' class="form__input" />
+          <input id='image' class="form__input" />
         </div>
         <div class="row justify-end align-center form__buttons">
           <button class="btn btn--secondary">Cancelar</button>
@@ -35,4 +32,32 @@
     </div>
   <?php include('components/footer.php') ?>
   </body>
+  <script>
+    const $ = el => document.querySelector(el)
+
+    const form = $('.form')
+
+    const submit = async e => {
+      e.preventDefault()
+
+      const body = new FormData()
+
+      body.append('id', $('#id').value)
+      body.append('title', $('#title').value)
+      body.append('description', $('#description').value)
+      body.append('image', $('#image').value)
+
+      const response = await fetch('functions.php', {method: 'POST', body})
+
+      if (response.status === 200) {
+        alert('Post criado com sucesso!')
+        window.location.href = '/'
+      } else {
+        alert('Ops! Alguma coisa deu errado.')
+      }
+    }
+
+    form.addEventListener('submit', submit)
+
+  </script>
 </html>
