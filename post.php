@@ -42,12 +42,11 @@
 
       const body = new FormData()
 
-      console.log('id', $('#id').value)
-
       body.append('id', $('#id').value)
       body.append('title', $('#title').value)
       body.append('description', $('#description').value)
       body.append('image', $('#image').value)
+      body.append('action', $('#id').value ? 'editPost' : 'createPost')
 
       const response = await fetch('functions.php', {method: 'POST', body})
 
@@ -61,9 +60,12 @@
     }
 
     const getPostById = async id => {
-      const response = await fetch('functions.php?id=' + id)
+      const body = new FormData()
+      body.append('action', 'getPostById')
+      body.append('id', id)
+
+      const response = await fetch('functions.php', {method: 'POST', body})
       const [ post ] = await response.json()
-      console.log(post)
       $('#id').value = post.id
       $('#title').value = post.title
       $('#description').value = post.description

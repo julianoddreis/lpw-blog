@@ -19,7 +19,11 @@
     const postsContainer = $('.posts')
 
     const getPosts = async () => {
-      const response = await fetch('functions.php')
+      const body = new FormData()
+      body.append('action', 'getPosts')
+
+      const response = await fetch('functions.php', {method: 'POST', body})
+      console.log(response)
       const posts = await response.json()
       posts.forEach(post => {
         postsContainer.insertAdjacentHTML(
