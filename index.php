@@ -18,13 +18,8 @@
 
     const postsContainer = $('.posts')
 
-    const getPosts = async () => {
-      const body = new FormData()
-      body.append('action', 'getPosts')
-
-      const response = await fetch('functions.php', {method: 'POST', body})
-      console.log(response)
-      const posts = await response.json()
+    const renderPosts = posts => {
+      postsContainer.innerHTML = ''
       posts.forEach(post => {
         postsContainer.insertAdjacentHTML(
           'beforeend',
@@ -34,7 +29,7 @@
                 <p class="post__title">${post.title}</p>
                 <div class="row post__actions">
                   <i class="fas fa-edit" onclick="editPost(${post.id})"></i>
-                  <i class="fas fa-trash onclick="deletePost(${post.id})"></i>
+                  <i class="fas fa-trash" onclick="deletePost(${post.id})"></i>
                 </div>
               </div>
               <img class="post__image" src=${post.image} />
@@ -45,12 +40,37 @@
       })
     }
 
+    const getPosts = async () => {
+      const body = new FormData()
+      body.append('action', 'getPosts')
+
+      const response = await fetch('functions.php', {method: 'POST', body})
+      if (response.status !== 200) {
+        alert('Ops! Alguma coisa deu errado.')
+        return
+      }
+
+      const posts = await response.json()
+      renderPosts(posts)
+    }
+
     const editPost = id => {
       window.location.href = '/post.php?id=' + id
     }
 
-    const deletePost = id => {
-      console.log(id)
+    const deletePost = async id => {
+      const body = new FormData()
+      body.append('id', id)
+      body.append('action', 'deletePost')
+
+      const response = await fetch('functions.php', {method: 'POST', body})
+      if (response.status === 200) {
+        alert('Post deletado com sucesso!')
+        getPosts()
+        return
+      }
+      
+      alert('Ops! Alguma coisa deu errado.')
     }
 
     getPosts()

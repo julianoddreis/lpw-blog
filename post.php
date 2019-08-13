@@ -41,7 +41,6 @@
       e.preventDefault()
 
       const body = new FormData()
-
       body.append('id', $('#id').value)
       body.append('title', $('#title').value)
       body.append('description', $('#description').value)
@@ -49,14 +48,13 @@
       body.append('action', $('#id').value ? 'editPost' : 'createPost')
 
       const response = await fetch('functions.php', {method: 'POST', body})
-
       if (response.status === 200) {
         alert(`Post ${$('#id').value ? 'editado' : 'criado'} com sucesso!`)
         window.location.href = '/'
-      } else {
-        alert('Ops! Alguma coisa deu errado.')
+        return
       }
 
+      alert('Ops! Alguma coisa deu errado.')
     }
 
     const getPostById = async id => {
@@ -65,6 +63,11 @@
       body.append('id', id)
 
       const response = await fetch('functions.php', {method: 'POST', body})
+      if (response.status !== 200) {
+        alert('Ops! Alguma coisa deu errado.')
+        return
+      }
+
       const [ post ] = await response.json()
       $('#id').value = post.id
       $('#title').value = post.title
@@ -72,13 +75,12 @@
       $('#image').value = post.image
     }
 
-    const params = new URLSearchParams(window.location.search)
-    const id = params.get('id')
-    if (id) {
-      getPostById(id)
+    const urlParams = new URLSearchParams(window.location.search)
+    const postIdFromUrl = params.get('id')
+    if (postIdFromUrl) {
+      getPostById(postIdFromUrl)
     }
 
     form.addEventListener('submit', submit)
-
   </script>
 </html>

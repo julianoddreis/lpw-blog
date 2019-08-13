@@ -15,6 +15,8 @@
     case 'getPostById':
       getPostById($pdo);
       break;
+    case 'deletePost':
+      deletePost($pdo);
     default:
       break;
   }
@@ -64,6 +66,17 @@
       $getPostById = $pdo->prepare('SELECT * FROM posts WHERE id=?');
       $getPostById->execute(array($id));
       echo json_encode($getPostById->fetchAll());
+    } catch (PDOException $e) {
+      http_response_code(500);
+    }
+  }
+
+  function deletePost ($pdo) {
+    $id = $_POST['id'];
+
+    try {
+      $deletePost = $pdo->prepare('delete from posts WHERE id=?');
+      $deletePost->execute(array($id));
     } catch (PDOException $e) {
       http_response_code(500);
     }
