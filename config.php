@@ -1,7 +1,7 @@
 <?php
 
-  $username = 'root';
-  $password = '12345678';
+  $username = '';
+  $password = '';
 
   try {
     $pdo = new PDO('mysql:host=127.0.0.1;dbname=lpw_blog', $username, $password);
