@@ -25,7 +25,7 @@
           <input id='image' class="form__input" />
         </div>
         <div class="row justify-end align-center form__buttons">
-          <button class="btn btn--secondary">Cancelar</button>
+          <button type="button" onclick="window.location.href='/'" class="btn btn--secondary">Cancelar</button>
           <button type="submit" class="btn btn--primary">Salvar</button>
         </div>
       </form>
@@ -76,7 +76,7 @@
     }
 
     const urlParams = new URLSearchParams(window.location.search)
-    const postIdFromUrl = params.get('id')
+    const postIdFromUrl = urlParams.get('id')
     if (postIdFromUrl) {
       getPostById(postIdFromUrl)
     }

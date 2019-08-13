@@ -20,6 +20,9 @@
 
     const renderPosts = posts => {
       postsContainer.innerHTML = ''
+      if (posts.length === 0) {
+        postsContainer.innerHTML = '<p>Nenhuma postagem ainda</p>'
+      }
       posts.forEach(post => {
         postsContainer.insertAdjacentHTML(
           'beforeend',
